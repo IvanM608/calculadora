@@ -38,16 +38,16 @@ let comprobarNumeros = function (numeros, comprobador) {
     return comprobador;
 }
 
-//Realiza una división con los números de las dos primeras posiciones de un array
+//Realiza una división con los números de las dos primeras posiciones de un array y devuelve el resutado
 let dividir = (numeros) => numeros[0] / numeros[1];
 
-//Realiza una multiplicación con los números de las dos primeras posiciones de un array
+//Realiza una multiplicación con los números de las dos primeras posiciones de un array y devuelve el resutado
 let multiplicar = (numeros) => numeros[0] * numeros[1];
 
-//Realiza una resta con los números de las dos primeras posiciones de un array
+//Realiza una resta con los números de las dos primeras posiciones de un array y devuelve el resutado
 let restar = (numeros) => numeros[0] - numeros[1];
 
-//Realiza una suma con los números de las dos primeras posiciones de un array
+//Realiza una suma con los números de las dos primeras posiciones de un array y devuelve el resutado
 let sumar = (numeros) => numeros[0] + numeros[1];
 
 alert("¡Bienvenid@!");
