@@ -5,6 +5,28 @@ let resultado;
 let comprobador;
 let volverPreguntar;
 
+let calculadora = {
+    lastResult: Number(1 - 1),
+
+    sumar(numeros) {
+        return numeros[0] + numeros[1];
+    },
+
+    restar(numeros) {
+        return numeros[0] - numeros[1];
+    },
+
+    multiplicar(numeros) {
+        return numeros[0] * numeros[1];
+    },
+
+    dividir(numeros) {
+        return numeros[0] / numeros[1];
+    }
+
+
+}
+
 //Se comprueba si el carácter coincide con un operador válido
 function comprobarOperador(operador) {
     operador = operador.trim();
@@ -16,12 +38,29 @@ function comprobarOperador(operador) {
 
 //Extrae los números de un string y los devuelve en un array
 let filtrarNumeros = function (numeros) {
+
     numeros = numeros.trim();
     numeros = numeros.split(" ");
-    numeros = numeros.filter(Number);
-    numeros[0] = Number(numeros[0]);
-    numeros[1] = Number(numeros[1]);
-    return numeros;
+    if (numeros.includes("R")) {
+        let posicion = Number(numeros.indexOf("R"));
+        numeros[posicion] = Number(calculadora.lastResult);
+
+    }
+    if (numeros.includes(0)) {  //Soluciona la rareza de Javascript 0 = false
+        let posicionCero = Number(numeros.indexOf(0));
+        numeros[posicionCero] = 1;
+        numeros = numeros.filter(Number);
+        numeros[posicionCero] = Number(0);
+        numeros[0] = Number(numeros[0]);
+        numeros[1] = Number(numeros[1]);
+        return numeros;
+    } else {
+        numeros = numeros.filter(Number);
+        numeros[0] = Number(numeros[0]);
+        numeros[1] = Number(numeros[1]);
+        return numeros;
+    }
+
 }
 
 //Se comprueba si un array SOLO contiene números y devuelve true o false
@@ -37,18 +76,6 @@ let comprobarNumeros = function (numeros, comprobador) {
     }
     return comprobador;
 }
-
-//Realiza una división con los números de las dos primeras posiciones de un array y devuelve el resutado
-let dividir = (numeros) => numeros[0] / numeros[1];
-
-//Realiza una multiplicación con los números de las dos primeras posiciones de un array y devuelve el resutado
-let multiplicar = (numeros) => numeros[0] * numeros[1];
-
-//Realiza una resta con los números de las dos primeras posiciones de un array y devuelve el resutado
-let restar = (numeros) => numeros[0] - numeros[1];
-
-//Realiza una suma con los números de las dos primeras posiciones de un array y devuelve el resutado
-let sumar = (numeros) => numeros[0] + numeros[1];
 
 alert("¡Bienvenid@!");
 
@@ -68,22 +95,23 @@ do {
 
     switch (operador) {
         case "/":
-            resultado = dividir(numeros);
+            resultado = calculadora.dividir(numeros);
             break;
 
         case "*":
-            resultado = multiplicar(numeros);
+            resultado = calculadora.multiplicar(numeros);
             break;
 
         case "-":
-            resultado = restar(numeros);
+            resultado = calculadora.restar(numeros);
             break;
 
         case "+":
-            resultado = sumar(numeros);
+            resultado = calculadora.sumar(numeros);
             break;
     }
 
+    calculadora.lastResult = resultado;
     alert(`El resultado es: ${resultado}`);
     volverPreguntar = confirm("¿Quieres realizar otra operación");
 
